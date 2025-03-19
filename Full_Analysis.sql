@@ -6,7 +6,8 @@ SELECT
 FROM
     `data-analytics-learner.2024_cyclistic_cs.2024_annual_tripdata`
 GROUP BY 
-  1,2--average ride length by bike type
+  1,2
+--average ride length by bike type
 SELECT
  rideable_type,
  AVG(ride_length) AS ride_length_AVG
@@ -33,6 +34,7 @@ GROUP BY
         day_of_week
 ORDER BY
         average_ride_length DESC
+
 -- Average Ride Lengths: Members vs Casual  
 -- Looking at overall, member and casual average ride lengths
 SELECT
@@ -41,6 +43,7 @@ SELECT
     AVG(CASE WHEN member_casual = 'casual' THEN ride_length END) AS AvgRideLength_Casual
 FROM
     `data-analytics-learner.2024_cyclistic_cs.2024_annual_tripdata`;
+
 --AVG ride length per day of week for casual and member
 
 SELECT
@@ -54,6 +57,7 @@ GROUP BY
    member_casual
 ORDER BY
    average_ride_length DESC
+
  -- Rides per day: member and casual
  -- Looking at which days have the highest number of rides
 
@@ -76,6 +80,7 @@ WHERE
         rn = 1
 ORDER BY
         member_casual DESC
+
 -- End stations: member vs casual
 -- end station counts
 
@@ -90,6 +95,7 @@ GROUP BY
     end_station_name
 ORDER BY 
     total DESC;
+
 --max ride length by bike type and member type
 SELECT
   rideable_type,
@@ -98,6 +104,7 @@ SELECT
 FROM
   `data-analytics-learner.2024_cyclistic_cs.2024_annual_tripdata`
 GROUP BY 
+
  1,2 --max ride length by bike type
 
 SELECT
@@ -106,6 +113,7 @@ SELECT
 FROM
   `data-analytics-learner.2024_cyclistic_cs.2024_annual_tripdata`
 GROUP BY 
+
  1-- Max Ride Lengths: Members vs Casual  
  -- Looking at max ride lengths to check for outliers
 
@@ -115,6 +123,7 @@ SELECT
 FROM `data-analytics-learner.2024_cyclistic_cs.2024_annual_tripdata`
 
 GROUP BY member_casual
+
 --median ride length per day of week
 SELECT
  DISTINCT median_ride_length,
@@ -128,7 +137,9 @@ FROM
        `data-analytics-learner.2024_cyclistic_cs.2024_annual_tripdata`
         )
 ORDER BY
-    median_ride_length DESC-- median ride lengths per day as per member type
+    median_ride_length DESC
+
+-- median ride lengths per day as per member type
 SELECT
     DISTINCT median_ride_length,
     member_casual,
@@ -172,6 +183,7 @@ ORDER BY
         WHEN ride_month = 'November' THEN 11
         WHEN ride_month = 'December' THEN 12
     END;
+
 -- Monthly Max Ride Lengths: Members vs Casual 
 SELECT
     ride_month,
@@ -198,6 +210,7 @@ ORDER BY
         WHEN ride_month = 'December' THEN 12
     END,
     member_casual;
+
 -- Median Ride Lengths: Members vs Casual 
  -- Looking at median because of outliers influence on AVG
 
@@ -229,7 +242,9 @@ ORDER BY
         WHEN ride_month = 'October' THEN 10
         WHEN ride_month = 'November' THEN 11
         WHEN ride_month = 'December' THEN 12
-    END;-- Monthly Total Trips: Members vs Casual 
+    END;
+
+-- Monthly Total Trips: Members vs Casual 
 SELECT
     ride_month,
     TotalTrips,
@@ -263,6 +278,7 @@ ORDER BY
         WHEN ride_month = 'November' THEN 11
         WHEN ride_month = 'December' THEN 12
     END;
+
 -- most popular bike types per member vs casual
 -- Overall counts
 
@@ -273,6 +289,7 @@ FROM `data-analytics-learner.2024_cyclistic_cs.2024_annual_tripdata`
 GROUP BY rideable_type, 
          member_casual
 ORDER BY `Rows` DESC;
+
  -- Looking at most popular start and end station combos 
  -- Overall count
 
@@ -286,7 +303,9 @@ GROUP BY
         start_station_name, 
         end_station_name
 ORDER BY 
-        `Rows` DESC -- most popular start and end station combos
+        `Rows` DESC 
+
+-- most popular start and end station combos
 
 SELECT 
    start_station_name, 
@@ -301,6 +320,7 @@ GROUP BY
         1,2
 ORDER BY 
         combination_cnt DESC
+
  -- Looking at most popular start and end station combos
  -- Filtering by member or casual 
 
@@ -318,12 +338,16 @@ WHERE
 GROUP BY 
  1,2,4
 ORDER BY 
- combination_cnt DESC--Overall counts ride per bike type
+ combination_cnt DESC
+
+--Overall counts ride per bike type
+
 SELECT rideable_type,
       COUNT(ride_id) AS TotalTrips
 FROM `data-analytics-learner.2024_cyclistic_cs.2024_annual_tripdata`
 GROUP BY rideable_type
 ORDER BY TotalTrips DESC;
+
 -- percentage of total number of trips per member type
 -- Overall, member, casual
 -- total number of trips per day 
@@ -340,6 +364,7 @@ GROUP BY
     day_of_week
 ORDER BY 
     TotalTrips DESC;
+
 -- quarterly Average Ride Lengths: Members vs Casual
 SELECT
     ride_quarter,
@@ -368,6 +393,7 @@ ORDER BY
         WHEN ride_quarter = 'Q3' THEN 3
         WHEN ride_quarter = 'Q4' THEN 4
     END;
+
 -- Quarterly Max Ride Lengths: Members vs Casual 
 SELECT
     ride_quarter,
@@ -397,6 +423,7 @@ ORDER BY
         WHEN ride_quarter = 'Q4' THEN 4
     END,
     member_casual;
+
 -- Quarterly Median Ride Lengths: Members vs Casual 
 SELECT
     DISTINCT ride_quarter,
@@ -465,6 +492,7 @@ ORDER BY
         WHEN ride_quarter = 'Q3' THEN 3
         WHEN ride_quarter = 'Q4' THEN 4
     END;
+
 -- Start stations: member vs casual
 -- start station counts
 SELECT 
@@ -478,6 +506,7 @@ GROUP BY
   start_station_name
 ORDER BY 
   total DESC;
+
 -- Overall, member, casual
  -- Looking at total number of trips per day 
 
@@ -489,7 +518,9 @@ FROM `data-analytics-learner.2024_cyclistic_cs.2024_annual_tripdata`
 
 GROUP BY 1
 
-ORDER BY TotalTrips DESC;-- Overall trips per day
+ORDER BY TotalTrips DESC;
+
+-- Overall trips per day
 -- Looking at total number of trips per day_of_week
 
 SELECT
@@ -506,7 +537,9 @@ FROM
 GROUP BY
         day_of_week, TotalTrips_Overall
 ORDER BY
-      TotalTrips DESC --total trips per day(date) and member type
+      TotalTrips DESC 
+
+--total trips per day(date) and member type
 SELECT
     TotalTrips,
     member_casual,
@@ -526,6 +559,7 @@ FROM
          ride_date
     )
 ORDER BY ride_date ASC;
+
  -- Total Trips: Members vs Casual 
  -- Looking at overall, annual member and casual rider totals
 
@@ -543,7 +577,9 @@ FROM
                 COUNTIF(member_casual = 'casual') AS TotalCasualTrips
         FROM
                 `data-analytics-learner.2024_cyclistic_cs.2024_annual_tripdata`
-        )--Trips per day(date) and member/casual along with percentage
+        )
+
+--Trips per day(date) and member/casual along with percentage
 SELECT
  ride_date,
  TotalTrips_both,
@@ -568,7 +604,9 @@ GROUP BY
   1,2,3,4
 ORDER BY 
   ride_date
+
 --trips per start hour and member/casual along with percentage
+
 WITH base_data AS (
     SELECT 
         EXTRACT(HOUR FROM start_time) AS start_hour,
